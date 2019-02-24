@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+
+    <!-- First Row -->
+    <div class="row" id="first-row">
+      <div class="col-md-12">
+        <h2>Latest Mars News</h2>
+          {% for dict in pseudo_list %}
+            <h4 class="heading">{{dict.mars_news_title}}</h4>
+            <p>{{dict.mars_news_text}}</p>
+          {% endfor %}
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="row" id="second-row">
+      <div class="col-md-8">
+        <h2>Featured Mars Image</h2>
+          {% for dict in pseudo_list %}
+            <img src="{{dict.featured_image_url}}" alt="latest image from Mars!">
+          {% endfor %}
+      </div>
+      <div class="col-md-4">
+        <div class="box" style = "margin-top:20px">
+          <h4>Current Weather on Mars</h4>
+          {% for dict in pseudo_list %}
+            <p>{{dict.mars_weather}}</p>
+          {% endfor %}
+        </div><!-- just a dead area -->
+        <div class="box" style = "margin-top:20px">
+        <h4>Mars Facts</h4>
+          {% for dict in pseudo_list %}
+            {{ dict.mars_facts|safe }} <!-- Must say "safe" or there's no table! -->
+          {% endfor %}
+        </div>
+      </div>
+    </div><!-- end row-->
+
+    <!-- Third Row -->
+    <div class="row" id="third-row">    
+      <div class="col-md-10">
+        <hr><!--insert a horizontal line-->
+        <h2 style="text-align:center;">Mars Hemispheres</h2>
+        <hr><!--insert a horizontal line-->
+      </div>
+    </div>
+
+    <!-- Fourth Row -->
+    <div class="row" id="fourth-row">    
+      <!-- each image -->
+      {% for dict in pseudo_list %}
+        {% for item in dict.hemisphere_list%}
+          <div class="col-sm-6">
+            <img class="img-thumbnail mw-50" src='{{item["img_url"]}}' alt="Mars Hemisphere Image">
+            <h4 style="text-align:center">{{item["title"]}}</h4>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+  </div>
+</body>
+
+</html>
+
